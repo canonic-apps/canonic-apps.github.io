@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MED-CHAT | CANONIC</title>
+    <link rel="stylesheet" href="https://canonic-foundation.github.io/assets/style.css">
+</head>
+<body>
+    <nav class="topnav">
+        <a href="https://canonic-apps.github.io" class="topnav-brand">&#8745;</a>
+        <div class="topnav-links">
+            <a href="https://canonic-foundation.github.io">Foundation</a>
+            <a href="https://canonic-apps.github.io">Apps</a>
+            <a href="https://canonic-apps.github.io/DOMAIN/">Domain</a>
+            <a href="./" class="active">MedChat</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>MAMMOCHAT</h1>
+        <p class="tagline">Clinical breast imaging AI assistant</p>
+        <span class="badge">ENTERPRISE</span>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Certification</h2>
+        <div class="grid">
+            <div class="card" style="border-color: var(--accent);">
+                <h3>20,000+</h3>
+                <p>Patient encounters certified</p>
+            </div>
+            <div class="card">
+                <h3>NPI Required</h3>
+                <p>Operator credentialing mandatory</p>
+            </div>
+            <div class="card">
+                <h3>2017</h3>
+                <p>Bloomberg Foundation Grant seed</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Domain</h2>
+        <div class="flow">
+            <span class="flow-item">MEDICINE</span>
+            <span class="flow-arrow">&rarr;</span>
+            <span class="flow-item active">ONCOLOGY</span>
+            <span class="flow-arrow">&rarr;</span>
+            <span class="flow-item active">BREAST</span>
+        </div>
+        <p class="section-subtitle">Inherits: /canonic-domains/MEDICINE/oncology/breast/</p>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Chat Interface</h2>
+        <div id="chat-container" class="chat-container">
+            <div id="chat-messages" class="chat-messages">
+                <div class="message system">
+                    <p>MAMMOCHAT requires NPI credentialing. Access is currently restricted.</p>
+                    <p>Contact: <a href="mailto:dexter@hadleylab.org">dexter@hadleylab.org</a></p>
+                </div>
+            </div>
+            <form id="chat-form" class="chat-form">
+                <input type="text" id="chat-input" placeholder="NPI verification required..." disabled>
+                <button type="submit" disabled>Send</button>
+            </form>
+        </div>
+        <p class="note">Status: COMING. Backend in development.</p>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">Constraints</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>HIPAA</h3>
+                <p>Patient data protection compliant</p>
+            </div>
+            <div class="card">
+                <h3>IRB</h3>
+                <p>Institutional review board approved</p>
+            </div>
+            <div class="card">
+                <h3>DETROS</h3>
+                <p>Full dimensional closure required</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p><a href="https://canonic-foundation.github.io">Foundation</a> | <a href="https://github.com/canonic-apps">GitHub</a> | <a href="https://canonic-domains.github.io/MEDICINE/">Medicine</a></p>
+        <p>Clinical AI governance. Every decision auditable.</p>
+    </footer>
+
+    <script src="https://canonic-foundation.github.io/assets/nav.js"></script>
+    <style>
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--surface);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .chat-messages {
+            min-height: 300px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 1rem;
+        }
+        .message {
+            margin-bottom: 1rem;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+        }
+        .message.system {
+            background: var(--bg);
+            border-left: 3px solid var(--accent);
+        }
+        .message.user {
+            background: var(--accent);
+            color: var(--bg);
+            margin-left: 2rem;
+        }
+        .message.assistant {
+            background: var(--bg);
+            margin-right: 2rem;
+        }
+        .chat-form {
+            display: flex;
+            padding: 1rem;
+            border-top: 1px solid var(--border);
+        }
+        .chat-form input {
+            flex: 1;
+            padding: 0.75rem;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 4px 0 0 4px;
+            color: var(--text);
+        }
+        .chat-form button {
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        .chat-form input:disabled,
+        .chat-form button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .note {
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</body>
+</html>
