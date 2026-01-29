@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV CHAT | CANONIC</title>
+    <link rel="stylesheet" href="https://canonic-foundation.github.io/assets/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        .cv-panel {
+            background: #0a0a0a;
+            border: 1px solid #222;
+            border-radius: 8px;
+            padding: 2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cv-section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #222;
+        }
+        .cv-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+        .cv-section h3 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+        .cv-item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: #111;
+            border-radius: 4px;
+            position: relative;
+        }
+        .cv-item:hover {
+            background: #161616;
+        }
+        .cv-item h4 {
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        .cv-item p {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .evidence-tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            background: rgba(0, 255, 136, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 3px;
+            font-size: 0.75rem;
+            color: var(--accent);
+            cursor: help;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+        }
+        .evidence-tag:hover {
+            background: rgba(0, 255, 136, 0.2);
+        }
+        .tooltip {
+            position: relative;
+        }
+        .tooltip .tooltip-text {
+            visibility: hidden;
+            background: #222;
+            color: #fff;
+            text-align: left;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            border: 1px solid #333;
+            position: absolute;
+            z-index: 100;
+            bottom: 125%;
+            left: 0;
+            min-width: 250px;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .tooltip:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: #111;
+            border: 1px solid #222;
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 4px;
+        }
+        .stat-card .number {
+            font-size: 2rem;
+            color: var(--accent);
+            font-weight: bold;
+        }
+        .stat-card .label {
+            color: #666;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        .chat-input-area {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+        .chat-input {
+            flex: 1;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 4px;
+            padding: 0.75rem 1rem;
+            color: #fff;
+            font-size: 0.9rem;
+        }
+        .chat-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+        .chat-btn {
+            background: var(--accent);
+            color: #000;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .chat-btn:hover {
+            opacity: 0.9;
+        }
+        .chat-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .sample-questions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .sample-q {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: #888;
+            cursor: pointer;
+        }
+        .sample-q:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <nav class="topnav">
+        <a href="https://canonic-apps.github.io" class="topnav-brand">∩</a>
+        <div class="topnav-links">
+            <a href="https://canonic-apps.github.io/VITAE/">CV</a>
+            <a href="./" class="active">CHAT</a>
+            <a href="../EVO/">EVO</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>CV CHAT</h1>
+        <p class="tagline">Conversational interface to evidence</p>
+        <span class="badge">AGENT</span>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">DEXTER — CANONIC #0</h2>
+        <p class="section-subtitle">Founding CV. Every claim evidence-linked.</p>
+
+        <div class="stat-grid">
+            <div class="stat-card">
+                <div class="number">20,000+</div>
+                <div class="label">Patient Encounters</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">50+</div>
+                <div class="label">Publications</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">15+</div>
+                <div class="label">Years Clinical</div>
+            </div>
+            <div class="stat-card">
+                <div class="number">100%</div>
+                <div class="label">Evidence-linked</div>
+            </div>
+        </div>
+
+        <div class="cv-panel">
+            <div class="cv-section">
+                <h3>CURRENT POSITION</h3>
+                <div class="cv-item">
+                    <h4>Chief Medical Officer, Hadley Lab</h4>
+                    <p>AI governance in healthcare. Constitutional compliance for medical AI.</p>
+                    <div class="tooltip">
+                        <span class="evidence-tag">GitHub</span>
+                        <span class="tooltip-text">Evidence: github.com/hadleylab<br>Commit history validates position claims.</span>
+                    </div>
+                    <div class="tooltip">
+                        <span class="evidence-tag">CANONIC</span>
+                        <span class="tooltip-text">This CV follows CANONIC governance.<br>Every claim maps to verifiable evidence.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h3>CLINICAL EXPERIENCE</h3>
+                <div class="cv-item">
+                    <h4>Breast Imaging Specialist</h4>
+                    <p>20,000+ mammography interpretations. Sub-specialty fellowship trained.</p>
+                    <div class="tooltip">
+                        <span class="evidence-tag">LEDGER</span>
+                        <span class="tooltip-text">Clinical volume tracked in institutional systems.<br>Mammography reads documented in PACS.</span>
+                    </div>
+                </div>
+                <div class="cv-item">
+                    <h4>Oncology Expertise</h4>
+                    <p>Multidisciplinary tumor boards. Cancer staging and treatment planning.</p>
+                    <div class="tooltip">
+                        <span class="evidence-tag">Institutional</span>
+                        <span class="tooltip-text">Tumor board participation documented.<br>Evidence in medical center records.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h3>PUBLICATIONS</h3>
+                <div class="cv-item">
+                    <h4>AI in Medical Imaging</h4>
+                    <p>Research on machine learning applications in breast cancer detection.</p>
+                    <div class="tooltip">
+                        <span class="evidence-tag">PubMed</span>
+                        <span class="tooltip-text">Publications indexed in PubMed.<br>PMID links validate authorship.</span>
+                    </div>
+                    <div class="tooltip">
+                        <span class="evidence-tag">Scholar</span>
+                        <span class="tooltip-text">Google Scholar profile.<br>Citation metrics verifiable.</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cv-section">
+                <h3>CANONIC CONTRIBUTIONS</h3>
+                <div class="cv-item">
+                    <h4>CANONIC User #0</h4>
+                    <p>First evidence-linked CV. Founding contributor to governance framework.</p>
+                    <div class="tooltip">
+                        <span class="evidence-tag">Commit #1</span>
+                        <span class="tooltip-text">First commit to CANONIC repo.<br>Genesis of constitutional AI governance.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <input type="text" class="chat-input" placeholder="Ask about this CV..." disabled>
+            <button class="chat-btn" disabled>ASK</button>
+        </div>
+        <div class="sample-questions">
+            <span class="sample-q">What clinical experience does Dexter have?</span>
+            <span class="sample-q">How many publications?</span>
+            <span class="sample-q">What is CANONIC?</span>
+            <span class="sample-q">Show evidence for claims</span>
+        </div>
+        <p style="text-align: center; color: #444; font-size: 0.8rem; margin-top: 1rem;">Chat interface coming in v2 FOUNDATION</p>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">HOW IT WORKS</h2>
+        <p class="section-subtitle">AGENT = CHAT + EVO</p>
+        <div class="flow">
+            <span class="flow-item">Question</span> <span class="flow-arrow">→</span> <span class="flow-item">CV Context</span> <span class="flow-arrow">→</span> <span class="flow-item">Evidence Lookup</span> <span class="flow-arrow">→</span> <span class="flow-item">Answer + Links</span>
+        </div>
+        <div class="grid" style="margin-top: 2rem;">
+            <div class="card">
+                <h3>GROUNDED</h3>
+                <p>Every answer traces to CV content. No hallucination.</p>
+            </div>
+            <div class="card">
+                <h3>LINKED</h3>
+                <p>Evidence URLs included. One-click verification.</p>
+            </div>
+            <div class="card">
+                <h3>AUDITABLE</h3>
+                <p>Question history in TRANSCRIPTS. Full accountability.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p><a href="../">CV App</a> | <a href="../EVO/">EVO</a> | <a href="https://canonic-foundation.github.io">Foundation</a></p>
+        <p>Every answer → evidence. Evidence → LEDGER.</p>
+    </footer>
+
+    <script src="https://canonic-foundation.github.io/assets/nav.js"></script>
+</body>
+</html>
