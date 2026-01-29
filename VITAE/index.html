@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV | CANONIC</title>
+    <title>CV App | CANONIC</title>
     <link rel="stylesheet" href="https://canonic-foundation.github.io/assets/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
     <nav class="topnav">
@@ -21,12 +20,93 @@
         <img src="https://raw.githubusercontent.com/canonic-foundation/canonic/main/LANGUAGE/COMPLIANCE/assets/logo-business.svg" alt="CANONIC" style="height: 240px; margin-bottom: 1rem; filter: invert(1);">
         <h1>CURRICULUM VITAE</h1>
         <p class="tagline">Evidence-linked living document</p>
-        <span class="badge">CANONIC #0</span>
+        <span class="badge">CANONIC APP</span>
     </section>
 
-    <article id="cv-content">
-        <div class="loading">Loading CV...</div>
-    </article>
+    <section class="section">
+        <h2 class="section-title">WHAT IS IT</h2>
+        <p class="section-subtitle">Every claim links to evidence. Every evidence links to LEDGER.</p>
+        <div class="grid">
+            <div class="card">
+                <h3>CLAIMS</h3>
+                <p>Every statement in your CV is a verifiable claim.</p>
+            </div>
+            <div class="card">
+                <h3>EVIDENCE</h3>
+                <p>GitHub commits. PubMed papers. Google Scholar. Immutable proof.</p>
+            </div>
+            <div class="card">
+                <h3>LEDGER</h3>
+                <p>Evidence chains to permanent record. Trust without intermediaries.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">HOW IT WORKS</h2>
+        <p class="section-subtitle">Markdown + evidence URLs = verifiable CV.</p>
+        <div class="flow">
+            <span class="flow-item">Write CV.md</span> <span class="flow-arrow">→</span> <span class="flow-item">Link Evidence</span> <span class="flow-arrow">→</span> <span class="flow-item">Deploy</span> <span class="flow-arrow">→</span> <span class="flow-item">Verify</span>
+        </div>
+        <pre style="background: #111; padding: 1.5rem; margin: 2rem auto; max-width: 600px; overflow-x: auto; font-size: 0.85rem; border: 1px solid #333;">
+## Experience
+
+**Senior Engineer** at Company (2020-2024)
+- Built authentication system [(commit)](https://github.com/...)
+- Published paper on ML [(PubMed)](https://pubmed.ncbi.nlm.nih.gov/...)
+
+## Publications
+
+1. "Paper Title" — [PubMed](https://...) | [Scholar](https://...)
+        </pre>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">EXAMPLES</h2>
+        <p class="section-subtitle">Live CVs using this pattern.</p>
+        <div class="grid">
+            <a href="https://hadleylab-dexter.github.io/hadleylab/CV/" class="card" style="border-color: var(--accent);">
+                <h3>DEXTER CV</h3>
+                <p>Founding CV. Evidence-linked career history. CANONIC #0.</p>
+            </a>
+            <div class="card" style="opacity: 0.5;">
+                <h3>YOUR CV</h3>
+                <p>Fork the template. Add your evidence. Deploy.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">DEPLOY YOUR OWN</h2>
+        <p class="section-subtitle">5 minutes to verifiable credentials.</p>
+        <div class="grid">
+            <div class="card">
+                <h3>1. FORK</h3>
+                <p>Fork the CV template repository to your GitHub.</p>
+            </div>
+            <div class="card">
+                <h3>2. WRITE</h3>
+                <p>Edit CV.md with your claims and evidence links.</p>
+            </div>
+            <div class="card">
+                <h3>3. DEPLOY</h3>
+                <p>Enable GitHub Pages. Your CV is live.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <h2 class="section-title">DETROS COMPLIANCE</h2>
+        <p class="section-subtitle">Full dimensional governance.</p>
+        <table style="margin: 0 auto; border-collapse: collapse; font-size: 0.9rem;">
+            <tr><td style="padding: 0.5rem 1rem; border-bottom: 1px solid #333;">D — Durability</td><td style="padding: 0.5rem 1rem; border-bottom: 1px solid #333; color: var(--accent);">Git history</td></tr>
+            <tr><td style="padding: 0.5rem 1rem; border-bottom: 1px solid #333;">E — Evidence</td><td style="padding: 0.5rem 1rem; border-bottom: 1px solid #333; color: var(--accent);">Linked proofs</td></tr>
+            <tr><td style="padding: 0.5rem 1rem; border-bottom: 1px solid #333;">T — Time</td><td style="padding: 0.5rem 1rem; border-bottom: 1px solid #333; color: var(--accent);">Commit timestamps</td></tr>
+            <tr><td style="padding: 0.5rem 1rem; border-bottom: 1px solid #333;">R — Revision</td><td style="padding: 0.5rem 1rem; border-bottom: 1px solid #333; color: var(--accent);">Version control</td></tr>
+            <tr><td style="padding: 0.5rem 1rem; border-bottom: 1px solid #333;">O — Ownership</td><td style="padding: 0.5rem 1rem; border-bottom: 1px solid #333; color: var(--accent);">GPG signed</td></tr>
+            <tr><td style="padding: 0.5rem 1rem;">S — Schema</td><td style="padding: 0.5rem 1rem; color: var(--accent);">Markdown format</td></tr>
+        </table>
+    </section>
 
     <footer>
         <p><a href="https://canonic-foundation.github.io">Foundation</a> | <a href="https://github.com/canonic-apps">GitHub</a></p>
@@ -34,51 +114,5 @@
     </footer>
 
     <script src="https://canonic-foundation.github.io/assets/nav.js"></script>
-    <script>
-        const CV_URL = 'https://raw.githubusercontent.com/canonic-apps/apps/main/CV/dexter-cv.md';
-
-        async function loadCV() {
-            const content = document.getElementById('cv-content');
-
-            try {
-                const response = await fetch(CV_URL);
-                if (!response.ok) throw new Error('Not found');
-                const markdown = await response.text();
-
-                marked.setOptions({
-                    breaks: true,
-                    gfm: true
-                });
-
-                content.innerHTML = marked.parse(markdown);
-
-                // Make evidence links visually distinct
-                content.querySelectorAll('a').forEach(link => {
-                    if (link.href.includes('github.com') ||
-                        link.href.includes('ncbi.nlm.nih.gov') ||
-                        link.href.includes('scholar.google.com')) {
-                        link.classList.add('evidence-link');
-                    }
-                });
-            } catch (e) {
-                content.innerHTML = `
-                    <h2>CV not available</h2>
-                    <p>Unable to load the CV. Please check the repository.</p>
-                `;
-            }
-        }
-
-        loadCV();
-    </script>
-    <style>
-        .evidence-link {
-            border-bottom: 1px dashed var(--accent);
-        }
-        .evidence-link:hover {
-            border-bottom-style: solid;
-        }
-    </style>
 </body>
 </html>
-<!-- updated Wed Jan 29 09:57:00 EST 2026 -->
-<!-- force 1769698730 -->
