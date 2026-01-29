@@ -31,8 +31,8 @@
                 <p>Patient encounters certified</p>
             </div>
             <div class="card">
-                <h3>NPI Required</h3>
-                <p>Operator credentialing mandatory</p>
+                <h3>GitHub Gated</h3>
+                <p>Repo access required</p>
             </div>
             <div class="card">
                 <h3>2017</h3>
@@ -54,17 +54,23 @@
     </section>
 
     <section class="section">
+        <h2 class="section-title">Access</h2>
+        <div id="auth-container">
+            <!-- Auth state shown here -->
+        </div>
+    </section>
+
+    <section class="section" id="chat-section" style="display: none;">
         <h2 class="section-title">Chat Interface</h2>
         <div id="chat-container" class="chat-container">
             <div id="chat-messages" class="chat-messages">
                 <div class="message system">
-                    <p>MAMMOCHAT requires NPI credentialing. Access is currently restricted.</p>
-                    <p>Contact: <a href="mailto:dexter@hadleylab.org">dexter@hadleylab.org</a></p>
+                    <p>Welcome to MAMMOCHAT. You are authenticated via GitHub.</p>
                 </div>
             </div>
             <form id="chat-form" class="chat-form">
-                <input type="text" id="chat-input" placeholder="NPI verification required..." disabled>
-                <button type="submit" disabled>Send</button>
+                <input type="text" id="chat-input" placeholder="Ask about breast imaging...">
+                <button type="submit">Send</button>
             </form>
         </div>
         <p class="note">Status: COMING. Backend in development.</p>
@@ -94,6 +100,140 @@
     </footer>
 
     <script src="https://canonic-foundation.github.io/assets/nav.js"></script>
+    <script>
+        // GitHub OAuth configuration
+        const GITHUB_CLIENT_ID = 'Ov23liYourClientId'; // Set in canonic-apps settings
+        const REQUIRED_REPO = 'canonic-apps/MAMMOCHAT';
+        const REDIRECT_URI = window.location.origin + window.location.pathname;
+
+        // Check for OAuth callback
+        const params = new URLSearchParams(window.location.search);
+        const code = params.get('code');
+
+        // Storage keys
+        const TOKEN_KEY = 'mammochat_gh_token';
+        const USER_KEY = 'mammochat_gh_user';
+
+        async function checkAccess(token) {
+            try {
+                // Check if user has access to the private MAMMOCHAT repo
+                const response = await fetch(`https://api.github.com/repos/${REQUIRED_REPO}`, {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+                return response.ok;
+            } catch (e) {
+                return false;
+            }
+        }
+
+        async function getUser(token) {
+            try {
+                const response = await fetch('https://api.github.com/user', {
+                    headers: {
+                        'Authorization': `token ${token}`,
+                        'Accept': 'application/vnd.github.v3+json'
+                    }
+                });
+                if (response.ok) {
+                    return await response.json();
+                }
+            } catch (e) {}
+            return null;
+        }
+
+        function showLogin() {
+            document.getElementById('auth-container').innerHTML = `
+                <div class="auth-box">
+                    <p>MAMMOCHAT requires GitHub authentication.</p>
+                    <p>You must have access to <code>canonic-apps/MAMMOCHAT</code> (private repo).</p>
+                    <a href="https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&scope=repo" class="btn github-btn">
+                        <svg height="20" viewBox="0 0 16 16" width="20" style="fill: currentColor; vertical-align: middle; margin-right: 8px;">
+                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                        </svg>
+                        Sign in with GitHub
+                    </a>
+                    <p class="auth-note">Contact <a href="mailto:dexter@hadleylab.org">dexter@hadleylab.org</a> to request access.</p>
+                </div>
+            `;
+        }
+
+        function showAuthorized(user) {
+            document.getElementById('auth-container').innerHTML = `
+                <div class="auth-box authorized">
+                    <p>Authenticated as <strong>@${user.login}</strong></p>
+                    <p class="auth-status">Access granted to MAMMOCHAT</p>
+                    <button onclick="logout()" class="btn btn-secondary">Sign out</button>
+                </div>
+            `;
+            document.getElementById('chat-section').style.display = 'block';
+        }
+
+        function showUnauthorized(user) {
+            document.getElementById('auth-container').innerHTML = `
+                <div class="auth-box unauthorized">
+                    <p>Authenticated as <strong>@${user.login}</strong></p>
+                    <p class="auth-status error">No access to canonic-apps/MAMMOCHAT</p>
+                    <p>Contact <a href="mailto:dexter@hadleylab.org">dexter@hadleylab.org</a> to request access.</p>
+                    <button onclick="logout()" class="btn btn-secondary">Sign out</button>
+                </div>
+            `;
+        }
+
+        function logout() {
+            localStorage.removeItem(TOKEN_KEY);
+            localStorage.removeItem(USER_KEY);
+            window.location.href = REDIRECT_URI;
+        }
+
+        async function init() {
+            // Check for existing token
+            const token = localStorage.getItem(TOKEN_KEY);
+
+            if (token) {
+                const user = await getUser(token);
+                if (user) {
+                    const hasAccess = await checkAccess(token);
+                    if (hasAccess) {
+                        showAuthorized(user);
+                    } else {
+                        showUnauthorized(user);
+                    }
+                } else {
+                    // Token invalid, clear and show login
+                    localStorage.removeItem(TOKEN_KEY);
+                    showLogin();
+                }
+            } else if (code) {
+                // OAuth callback - need backend to exchange code for token
+                document.getElementById('auth-container').innerHTML = `
+                    <div class="auth-box">
+                        <p>Exchanging code for token...</p>
+                        <p class="auth-note">Note: Requires OAuth callback handler at <code>/api/github/callback</code></p>
+                        <p>For testing, manually set token:</p>
+                        <input type="text" id="manual-token" placeholder="GitHub Personal Access Token" style="width: 100%; padding: 0.5rem; margin: 0.5rem 0;">
+                        <button onclick="setManualToken()" class="btn">Set Token</button>
+                    </div>
+                `;
+                // Clear the code from URL
+                window.history.replaceState({}, document.title, REDIRECT_URI);
+            } else {
+                showLogin();
+            }
+        }
+
+        function setManualToken() {
+            const token = document.getElementById('manual-token').value.trim();
+            if (token) {
+                localStorage.setItem(TOKEN_KEY, token);
+                window.location.reload();
+            }
+        }
+
+        init();
+    </script>
     <style>
         .chat-container {
             max-width: 800px;
@@ -147,15 +287,62 @@
             border-radius: 0 4px 4px 0;
             cursor: pointer;
         }
-        .chat-form input:disabled,
-        .chat-form button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
         .note {
             text-align: center;
             margin-top: 1rem;
             color: var(--text-secondary);
+        }
+        .auth-box {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: var(--surface);
+            border-radius: 8px;
+            text-align: center;
+        }
+        .auth-box code {
+            background: var(--bg);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: var(--accent);
+            color: var(--bg);
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 1rem 0;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .btn-secondary {
+            background: var(--border);
+            color: var(--text);
+        }
+        .github-btn {
+            background: #24292e;
+            color: white;
+        }
+        .auth-note {
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        .auth-status {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+        }
+        .auth-status.error {
+            background: rgba(255, 100, 100, 0.2);
+            color: #ff6b6b;
+        }
+        .authorized .auth-status {
+            background: rgba(100, 255, 100, 0.2);
+            color: #6bff6b;
         }
     </style>
 </body>
